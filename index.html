@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="mn" data-theme="light" style="color-scheme: light;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тэмцээний шууд явц</title>
+<style>
+:root{--bg:#fbf6ea;--card:#fff;--text:#1d1a17;--muted:#6f7777;--line:#ece4d4;--acc:#0e8fb0;--g:#fff3d1;--ok:#17803d;--bad:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1714;--card:#262320;--text:#f3eee6;--muted:#a9b3b3;--line:#3a3530;--g:#4a3c17;--ok:#4ade80;--bad:#f87171}}
+:root[data-theme="dark"]{--bg:#1a1714;--card:#262320;--text:#f3eee6;--muted:#a9b3b3;--line:#3a3530;--g:#4a3c17;--ok:#4ade80;--bad:#f87171}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 14px 60px}
+h1{margin:0 0 4px;font-size:28px}.sub{color:var(--muted);margin:0 0 18px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:var(--card);color:var(--text);padding:9px 16px;border-radius:999px;font-weight:700;cursor:pointer;white-space:nowrap;font-size:14px}
+.tab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 12px;font-size:17px}
+.sc{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 8px;text-align:center;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:12px;font-weight:700}
+td:nth-child(2),th:nth-child(2){text-align:left;font-weight:700}
+tr.r1 td{background:var(--g)}
+.teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.team{border:1px solid var(--line);border-radius:12px;padding:12px}
+.team b{display:block;margin-bottom:4px}.team small{color:var(--muted);line-height:1.5}
+.m{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.m:last-child{border:0}
+.m .t{flex:1}.m .t.r{text-align:right}.m .w{font-weight:800}
+.m .s{font-weight:800;padding:4px 10px;border-radius:8px;background:var(--bg)}
+.empty{color:var(--muted);padding:6px 0}
+.adm{border:2px dashed var(--acc)}
+.adm h3{margin:14px 0 8px;font-size:14px}
+.f{display:flex;flex-wrap:wrap;gap:8px}
+input,select,button{font:inherit;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
+input.n{width:70px}
+button.p{background:var(--acc);color:#fff;border:0;font-weight:700;cursor:pointer}
+button.x{background:none;border:0;color:var(--bad);cursor:pointer;padding:4px 8px}
+.note{color:var(--muted);font-size:12px;margin-top:8px}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--bad);margin-right:6px;animation:b 1.2s infinite}
+@keyframes b{50%{opacity:.25}}
+</style>
+<style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style><style>artifact-sync,artifact-local{display:contents}</style></head>
+<body>
+<main>
+<h1><span class="live"></span>Тэмцээний шууд явц</h1>
+<p class="sub">Баг, тамирчид, хожил хожигдол, оноо шууд шинэчлэгдэнэ.</p>
+<div class="tabs" id="tabs"></div>
+<div id="view"></div>
+<div id="admin"></div>
+<p class="note" id="status"></p>
+</main>
+<script type="application/json" id="data">{"cats":{"b3":{"teams":[{"id":"t1795573420366","name":"Төвийн бүс","players":["Баттүшиг","Мөнхтулга","Жанцанхорол"]},{"id":"t1795574246277","name":"Сайн трансфер","players":["Билгүүн","Өнөболд","Даваасүрэн","Сүхбаатар"]},{"id":"t1795574403149","name":"Зүүн бүс","players":["Тэнгисболд","Хүслэн","Алтангэрэл","Тэнгис"]},{"id":"t1795574656949","name":"Баруун бүс","players":["Цэнгүүн","Идэр","Гансүх","Тэмүүжин"]},{"id":"t1795574770805","name":"Оффис","players":["Батням","Цэнгүүнжав","Амгалан","Мөнхбаяр"]}],"matches":[],"sched":[{"id":"s1795574911412","a":"t1795574770805","b":"t1795574656949","time":"11:00-11:15"},{"id":"s1795574940237","a":"t1795574403149","b":"t1795574246277","time":"11:15-11:30"},{"id":"s1795574959437","a":"t1795574656949","b":"t1795573420366","time":"11:30-11:45"},{"id":"s1795574988301","a":"t1795574246277","b":"t1795574770805","time":"11:45-12:00"}]},"g5":{"teams":[{"id":"t1795575686221","name":"Төвийн бүс","players":["Нарангэрэл","Алтанчимэг","Мишээлт","Эрдэнэцэцэг","Тунгалагтамир","Нандин-Эрдэнэ","Энхтуул"]},{"id":"t1795576300157","name":"Зүүн бүс","players":["Ариунцэцэг","Болормаа","Одончимэг","Оюунсувд","Болормаа","Мөнгөнтулга","Мөнхцэцэг"]},{"id":"t1795576397254","name":"Баруун бүс","players":["Алтантуяа","Ундармаа","Ууганцэцэг","Хишигжаргал","Оюунгэрэл","Одгэрэл","Хүслэн"]},{"id":"t1795576927165","name":"Оффис","players":["Ууганзаяа","Отгонжаргал","Мөнх-Уянга","Мөнгөнцэцэг","Золзаяа","Баярт","Дүүрэнжаргал"]}],"matches":[],"sched":[{"id":"s1795576985374","a":"t1795575686221","b":"t1795576927165","time":"09:00-09:20"},{"id":"s1795577008157","a":"t1795576397254","b":"t1795576300157","time":"09:20-09:40"},{"id":"s1795577064406","a":"t1795575686221","b":"t1795576397254","time":"09:40-10:00"},{"id":"s1795577125654","a":"t1795576300157","b":"t1795576927165","time":"10;00-10:20"},{"id":"s1795577266902","a":"t1795575686221","b":"t1795576300157","time":"10:20-10:40"},{"id":"s1795577355654","a":"t1795576397254","b":"t1795576927165","time":"10:40-11:00"}]},"dart":{"teams":[],"matches":[]},"hb":{"teams":[{"id":"t1795577495565","name":"Төвийн бүс 1-р баг","players":[]},{"id":"t1795577518149","name":"Баруун бүс 1-р баг","players":[]},{"id":"t1795577532093","name":"Зүүн бүс","players":[]},{"id":"t1795577545941","name":"Оффис","players":[]},{"id":"t1795577564110","name":"Төвийн бүс 2-р баг","players":[]},{"id":"t1795577584422","name":"Баруун бүс 2-р баг","players":[]}],"matches":[]}}}</script>
+<script>
+const CATS=[["b3","🏀 3x3 Эрэгтэй"],["g5","🏀 5x5 Эмэгтэй"],["dart","🎯 Дартс"],["tt","🏓 Ширээний теннис"],["hb","🤾 Гар бөмбөг (холимог)"]];
+let state={cats:{}},cur="b3",art=null,canEdit=false;
+try{state=JSON.parse(document.getElementById("data").textContent)||{cats:{}}}catch(e){}
+if(!state.cats)state.cats={};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cat=()=>state.cats[cur]||(state.cats[cur]={teams:[],matches:[]});
+function table(c){
+  const r=c.teams.map(t=>({t,p:0,w:0,l:0,f:0,a:0}));
+  const by=Object.fromEntries(r.map(x=>[x.t.id,x]));
+  c.matches.forEach(m=>{const A=by[m.a],B=by[m.b];if(!A||!B)return;
+    A.p++;B.p++;A.f+=m.sa;A.a+=m.sb;B.f+=m.sb;B.a+=m.sa;
+    if(m.sa>m.sb){A.w++;B.l++}else if(m.sb>m.sa){B.w++;A.l++}});
+  r.forEach(x=>{x.pts=x.w*2+x.l;x.d=x.f-x.a});
+  return r.sort((a,b)=>b.pts-a.pts||b.d-a.d||b.f-a.f);
+}
+function render(){
+  $("tabs").innerHTML=CATS.map(([k,n])=>`<button class="tab ${k===cur?"on":""}" data-k="${k}">${n}</button>`).join("");
+  document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{cur=b.dataset.k;render()});
+  const c=cat(),tn=Object.fromEntries(c.teams.map(t=>[t.id,t.name])),rows=table(c);
+  let h=`<div class="card"><h2>Байрын жагсаалт</h2><div class="sc">`;
+  h+=rows.length?`<table><tr><th>#</th><th>Баг / тамирчин</th><th>Тогл</th><th>Хож</th><th>Хож.</th><th>+/-</th><th>Оноо</th></tr>${rows.map((x,i)=>`<tr class="${i===0&&x.p?"r1":""}"><td>${i+1}</td><td>${esc(x.t.name)}</td><td>${x.p}</td><td>${x.w}</td><td>${x.l}</td><td>${x.d>0?"+":""}${x.d}</td><td><b>${x.pts}</b></td></tr>`).join("")}</table>`:`<div class="empty">Баг бүртгэгдээгүй байна.</div>`;
+  h+=`</div><div class="note">Хожил 2 оноо, хожигдол 1 оноо. Тэнцвэл онооны зөрүүгээр эрэмбэлнэ.</div></div>`;
+  const sc=c.sched||[];
+  h+=`<div class="card"><h2>Удахгүй болох тоглолтууд</h2>`;
+  h+=sc.length?sc.map(x=>`<div class="m" style="flex-wrap:wrap"><span class="t r">${esc(tn[x.a]||"?")}</span><span class="s">${esc(x.time||"vs")}</span><span class="t">${esc(tn[x.b]||"?")}</span>${canEdit?`<input class="n" type="number" min="0" data-sa="${x.id}"><b>:</b><input class="n" type="number" min="0" data-sb="${x.id}"><button class="p" data-fin="${x.id}">Дүн</button><button class="x" data-ds="${x.id}">✕</button>`:""}</div>`).join(""):`<div class="empty">Товлосон тоглолт алга.</div>`;
+  h+=`</div><div class="card"><h2>Тоглолтын үр дүн</h2>`;
+  h+=c.matches.length?[...c.matches].reverse().map(m=>`<div class="m"><span class="t r ${m.sa>m.sb?"w":""}">${esc(tn[m.a]||"?")}</span><span class="s">${m.sa} : ${m.sb}</span><span class="t ${m.sb>m.sa?"w":""}">${esc(tn[m.b]||"?")}</span>${canEdit?`<button class="x" data-del="${m.id}">✕</button>`:""}</div>`).join(""):`<div class="empty">Тоглолт хараахан болоогүй.</div>`;
+  h+=`</div><div class="card"><h2>Оролцогчид</h2><div class="teams">`;
+  h+=c.teams.length?c.teams.map(t=>`<div class="team"><b>${esc(t.name)}${canEdit?` <button class="x" data-dt="${t.id}">✕</button>`:""}</b><small>${t.players.length?t.players.map(esc).join(", "):"Гишүүн нэмээгүй"}</small></div>`).join(""):`<div class="empty">Баг байхгүй.</div>`;
+  h+=`</div></div>`;
+  if(cur==="hb"){const ml=c.meals||[];h+=`<div class="card"><h2>🍽️ Зоогийн хуваарилалт</h2>`+(ml.length?ml.map(x=>`<div class="m"><span class="t"><b>${esc(tn[x.team]||"?")}</b></span><span class="t">${esc(x.text)}</span>${canEdit?`<button class="x" data-dm="${x.id}">✕</button>`:""}</div>`).join(""):`<div class="empty">Зоог хуваарилаагүй байна.</div>`)+`</div>`}
+  $("view").innerHTML=h;
+  document.querySelectorAll("[data-dm]").forEach(b=>b.onclick=()=>{c.meals=c.meals.filter(x=>x.id!==b.dataset.dm);save()});
+  document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{c.matches=c.matches.filter(m=>m.id!==b.dataset.del);save()});
+  document.querySelectorAll("[data-dt]").forEach(b=>b.onclick=()=>{if(!confirm("Баг болон түүний тоглолтуудыг устгах уу?"))return;const id=b.dataset.dt;c.teams=c.teams.filter(t=>t.id!==id);c.matches=c.matches.filter(m=>m.a!==id&&m.b!==id);save()});
+  document.querySelectorAll("[data-ds]").forEach(b=>b.onclick=()=>{c.sched=c.sched.filter(x=>x.id!==b.dataset.ds);save()});
+  document.querySelectorAll("[data-fin]").forEach(b=>b.onclick=()=>{const id=b.dataset.fin,x=c.sched.find(y=>y.id===id),sa=parseInt(document.querySelector('[data-sa="'+id+'"]').value),sb=parseInt(document.querySelector('[data-sb="'+id+'"]').value);if(isNaN(sa)||isNaN(sb)||sa===sb){alert("Тэнцээгүй оноо оруулна уу.");return}c.matches.push({id:"m"+Date.now(),a:x.a,b:x.b,sa,sb});c.sched=c.sched.filter(y=>y.id!==id);save()});
+  adminUI();
+}
+function adminUI(){
+  if(!canEdit){$("admin").innerHTML="";return}
+  const c=cat(),opt=c.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");
+  $("admin").innerHTML=`<div class="card adm"><h2>Удирдах самбар</h2>${cur==="hb"?`<h3>Зоог хуваарилах</h3><div class="f"><select id="mlt">${opt}</select><input id="mlx" placeholder="Жш: 12:30, хоолны газар" style="flex:1;min-width:200px"><button class="p" id="addMl">Нэмэх</button></div>`:""}
+  <h3>Баг эсвэл тамирчин нэмэх</h3><div class="f"><input id="tn" placeholder="Баг / тамирчны нэр"><input id="tp" placeholder="Гишүүд (таслалаар, заавал биш)" style="flex:1;min-width:200px"><button class="p" id="addT">Нэмэх</button></div>
+  <h3>Тоглолтын хуваарь нэмэх (дарааллаар)</h3><div class="f"><select id="sca">${opt}</select><b>vs</b><select id="scb">${opt}</select><input id="sct" placeholder="Цаг (жш: 11-27 14:00)"><button class="p" id="addS">Нэмэх</button></div>
+  <h3>Тоглолтын дүн шууд оруулах</h3><div class="f"><select id="ma">${opt}</select><input class="n" id="sa" type="number" min="0" placeholder="0"><b>:</b><input class="n" id="sb" type="number" min="0" placeholder="0"><select id="mb">${opt}</select><button class="p" id="addM">Хадгалах</button></div></div>`;
+  $("addS").onclick=()=>{const a=$("sca").value,b=$("scb").value;if(!a||!b||a===b){alert("Хоёр өөр баг сонгоно уу.");return}(c.sched=c.sched||[]).push({id:"s"+Date.now(),a,b,time:$("sct").value.trim()});save()};
+  if($("addMl"))$("addMl").onclick=()=>{const t=$("mlt").value,x=$("mlx").value.trim();if(!t||!x)return;(c.meals=c.meals||[]).push({id:"f"+Date.now(),team:t,text:x});save()};
+  $("addT").onclick=()=>{const n=$("tn").value.trim();if(!n)return;c.teams.push({id:"t"+Date.now(),name:n,players:$("tp").value.split(",").map(s=>s.trim()).filter(Boolean)});save()};
+  $("addM").onclick=()=>{const a=$("ma").value,b=$("mb").value,sa=parseInt($("sa").value),sb=parseInt($("sb").value);
+    if(!a||!b||a===b||isNaN(sa)||isNaN(sb)||sa===sb){alert("Хоёр өөр баг сонгож, тэнцээгүй оноо оруулна уу.");return}
+    c.matches.push({id:"m"+Date.now(),a,b,sa,sb});save()};
+}
+function build(){
+  const d=document.documentElement.cloneNode(true);
+  ["tabs","view","admin"].forEach(id=>{d.querySelector("#"+id).innerHTML=""});
+  d.querySelector("#status").textContent="";
+  d.querySelector("#data").textContent=JSON.stringify(state).replace(/</g,"\\u003c");
+  return "<!DOCTYPE html>\n"+d.outerHTML;
+}
+function save(){
+  try{localStorage.setItem("tdraft",JSON.stringify(state))}catch(e){}
+  render();
+  $("status").innerHTML='Өөрчлөлт түр хадгалагдлаа. Сайтад гаргахын тулд <button class="p" id="dl">index.html татах</button> дараад Vercel дээр дахин байршуулна.';
+  $("dl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([build()],{type:"text/html"}));a.download="index.html";a.click()};
+}
+canEdit=new URLSearchParams(location.search).get("admin")==="1";
+if(canEdit){try{const d=JSON.parse(localStorage.getItem("tdraft")||"null");if(d&&d.cats)state=d}catch(e){}}
+render();
+</script>
+
+
+</body></html>
